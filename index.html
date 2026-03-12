@@ -8,17 +8,17 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body class="bg-gray-50 min-h-screen p-2 sm:p-4">
-<div class="w-full max-w-7xl mx-auto bg-white rounded-xl shadow-lg p-4 sm:p-8">
+<body class="bg-white min-h-screen p-2 sm:p-4">
+<div class="w-full max-w-7xl mx-auto bg-white rounded-lg p-3 sm:rounded-xl sm:p-6 lg:p-8">
 
-  <h1 class="text-3xl font-bold text-blue-700 text-center mb-1">
+  <h1 class="text-2xl sm:text-3xl font-bold text-blue-700 text-center mb-1">
     Dr Vinutha's Options Portfolio
   </h1>
-  <p class="text-center text-gray-600 mb-8 text-lg">
+  <p class="text-center text-gray-600 mb-6 text-base sm:mb-8 sm:text-lg">
     Protective PUT collar strategy
   </p>
 
-  <div class="hidden md:block overflow-x-auto">
+  <div class="hidden lg:block overflow-x-auto">
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-800">
         <tr>
@@ -79,13 +79,13 @@
     </table>
   </div>
 
-  <div class="md:hidden space-y-4">
-    <article class="border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+  <div class="lg:hidden space-y-3 sm:space-y-4">
+    <article class="border border-gray-200 rounded-xl p-4 bg-white">
       <div class="flex items-start justify-between gap-3">
         <h3 class="font-semibold text-gray-900">NIFTY Long Position (Futures)</h3>
         <span class="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">Buy</span>
       </div>
-      <dl class="mt-3 grid grid-cols-2 gap-y-2 text-sm">
+      <dl class="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
         <dt class="text-gray-500">Qty</dt><dd class="text-right font-medium">65</dd>
         <dt class="text-gray-500">Strike</dt><dd class="text-right font-medium">-</dd>
         <dt class="text-gray-500">Buy Price</dt><dd data-field="buy-1" class="text-right font-medium">Loading...</dd>
@@ -94,12 +94,12 @@
       </dl>
     </article>
 
-    <article class="border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+    <article class="border border-gray-200 rounded-xl p-4 bg-white">
       <div class="flex items-start justify-between gap-3">
         <h3 class="font-semibold text-gray-900">NIFTY PUT</h3>
         <span class="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">Buy</span>
       </div>
-      <dl class="mt-3 grid grid-cols-2 gap-y-2 text-sm">
+      <dl class="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
         <dt class="text-gray-500">Qty</dt><dd class="text-right font-medium">65</dd>
         <dt class="text-gray-500">Strike</dt><dd class="text-right font-medium">25,000</dd>
         <dt class="text-gray-500">Buy Price</dt><dd data-field="buy-2" class="text-right font-medium">Loading...</dd>
@@ -108,12 +108,12 @@
       </dl>
     </article>
 
-    <article class="border border-gray-200 rounded-xl p-4 bg-white shadow-sm">
+    <article class="border border-gray-200 rounded-xl p-4 bg-white">
       <div class="flex items-start justify-between gap-3">
         <h3 class="font-semibold text-gray-900">NIFTY CALL</h3>
         <span class="bg-red-100 text-red-800 text-xs font-semibold px-3 py-1 rounded-full">Sell</span>
       </div>
-      <dl class="mt-3 grid grid-cols-2 gap-y-2 text-sm">
+      <dl class="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
         <dt class="text-gray-500">Qty</dt><dd class="text-right font-medium">65</dd>
         <dt class="text-gray-500">Strike</dt><dd class="text-right font-medium">29,000</dd>
         <dt class="text-gray-500">Buy Price</dt><dd data-field="buy-3" class="text-right font-medium">Loading...</dd>
@@ -122,14 +122,14 @@
       </dl>
     </article>
 
-    <div class="border border-gray-200 rounded-xl p-4 bg-gray-50">
+    <div class="border border-gray-200 rounded-xl p-4 bg-white">
       <p class="text-xs uppercase tracking-wide text-gray-500">Total Profit</p>
       <p data-field="total-profit" class="text-xl font-bold mt-1">Loading...</p>
     </div>
   </div>
 
   <div class="mt-8 text-sm text-gray-700 leading-relaxed">
-    <h2 class="text-xl font-bold mb-2">Trade Rationale & Payoff Structure</h2>
+    <h2 class="text-lg sm:text-xl font-bold mb-2">Trade Rationale & Payoff Structure</h2>
     <ul class="list-disc pl-6 space-y-2">
       <li><b>Investment:</b> Rs 3,00,000</li>
       <li><b>Structure:</b> Long Nifty + Long 25,000 PUT + Short 29,000 CALL</li>
@@ -141,13 +141,15 @@
 
   <div class="mt-10">
     <h2 class="text-lg font-bold text-center mb-4">Payoff Curve at Expiry</h2>
-    <canvas id="payoffChart" height="120"></canvas>
+    <div class="relative h-64 sm:h-80 lg:h-96">
+      <canvas id="payoffChart"></canvas>
+    </div>
   </div>
 
   <div class="mt-8">
     <h2 class="text-lg font-bold text-center mb-4">Expiry Payoff Table</h2>
     <div class="overflow-x-auto">
-      <table class="w-full border text-sm text-center">
+      <table class="w-full min-w-[320px] border text-xs sm:text-sm text-center">
         <thead class="bg-gray-200">
           <tr>
             <th class="border px-3 py-2">Nifty at Expiry</th>
@@ -267,7 +269,11 @@ for(let s=25000;s<=30000;s+=250){ xs.push(s); ys.push(expiryPayoff(s)); }
 new Chart(document.getElementById("payoffChart"),{
   type:"line",
   data:{labels:xs,datasets:[{data:ys,borderWidth:2,tension:0.15}]},
-  options:{plugins:{legend:{display:false}}}
+  options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{legend:{display:false}}
+  }
 });
 const tbody=document.getElementById("payoffTable");
 for(let s=25000;s<=30000;s+=1000){
