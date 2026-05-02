@@ -10,6 +10,7 @@ const SHEET_URL = process.env.GOOGLE_SHEET_CSV_URL;
 const DEFAULT_RISK_FREE_RATE = 0.05;
 const DEFAULT_TIME_TO_EXPIRY_YEARS = 30 / 365;
 const OUTPUT_DECIMALS = 6;
+const INDIA_EXPIRY_TIME_SUFFIX = "T15:30:00+05:30";
 
 function normalizeHeader(value) {
   return String(value ?? "")
@@ -167,6 +168,19 @@ function parseCsv(csvText) {
   return records;
 }
 
+function parseExpiryDateValue(expiryDateRaw) {
+  const normalized = String(expiryDateRaw ?? "").trim();
+  if (!normalized) {
+    return null;
+  }
+
+  const parsedDate = /^\d{4}-\d{2}-\d{2}$/.test(normalized)
+    ? new Date(`${normalized}${INDIA_EXPIRY_TIME_SUFFIX}`)
+    : new Date(normalized);
+
+  return Number.isNaN(parsedDate.getTime()) ? null : parsedDate;
+}
+
 function getTimeToExpiry(row) {
   const timeToExpiryYears = getNumberValue(row, [
     "timeToExpiryYears",
@@ -185,8 +199,8 @@ function getTimeToExpiry(row) {
 
   const expiryDateRaw = getStringValue(row, ["expiryDate", "expiry"]);
   if (expiryDateRaw) {
-    const expiryDate = new Date(expiryDateRaw);
-    if (!Number.isNaN(expiryDate.getTime())) {
+    const expiryDate = parseExpiryDateValue(expiryDateRaw);
+    if (expiryDate) {
       const milliseconds = expiryDate.getTime() - Date.now();
       const days = milliseconds / (1000 * 60 * 60 * 24);
       if (days > 0) {
@@ -211,6 +225,8 @@ function buildClientRecord(row) {
   const quantity = getNumberValue(row, ["quantity", "qty"]);
   const spot = getNumberValue(row, ["latestSpot", "latest spot", "spotNow", "spot"]);
   const rate = getNumberValue(row, ["riskFreeRate", "riskfreerate", "rate"], DEFAULT_RISK_FREE_RATE);
+  const expiryDateRaw = getStringValue(row, ["expiryDate", "expiry"]);
+  const expiryDate = parseExpiryDateValue(expiryDateRaw);
   const timeToExpiry = getTimeToExpiry(row);
 
   const requiredValues = [spotBuy, putBuy, callSell, putStrike, callStrike, putIV, callIV, quantity, spot];
@@ -245,6 +261,15 @@ function buildClientRecord(row) {
   return {
     clientId,
     password,
+    spotBuy: roundNumber(spotBuy),
+    putBuy: roundNumber(putBuy),
+    callSell: roundNumber(callSell),
+    putStrike: roundNumber(putStrike),
+    callStrike: roundNumber(callStrike),
+    putIV: roundNumber(putIV),
+    callIV: roundNumber(callIV),
+    expiryDate: expiryDate ? expiryDate.toISOString() : expiryDateRaw,
+    timeToExpiryYears: roundNumber(timeToExpiry),
     currentValue: roundNumber(currentValue),
     initialValue: roundNumber(initialValue),
     pnl: roundNumber(pnl),
