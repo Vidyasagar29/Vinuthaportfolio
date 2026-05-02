@@ -1,4 +1,27 @@
 {
-  "lastUpdated": "",
-  "clients": []
+  "lastUpdated": "2026-05-02T20:35:20.982Z",
+  "clients": [
+    {
+      "clientId": "Vinutha",
+      "password": "xxxx",
+      "currentValue": 1632674.232408,
+      "initialValue": 1627535,
+      "pnl": 5139.232408,
+      "spot": 23997.55,
+      "putNow": 1120.516299,
+      "callNow": 0.001185,
+      "quantity": 65
+    },
+    {
+      "clientId": "Vidyasagar",
+      "password": "xxxx",
+      "currentValue": 64238374.890741,
+      "initialValue": 65587500,
+      "pnl": -1349125.109259,
+      "spot": 23997.55,
+      "putNow": 1957.348951,
+      "callNow": 0.000006,
+      "quantity": 2475
+    }
+  ]
 }
