@@ -1,0 +1,16 @@
+{
+  "name": "vinutha-portfolio-engine",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Portfolio calculation engine that fetches Google Sheet CSV data and updates JSON output.",
+  "scripts": {
+    "generate": "node ./scripts/generatePortfolio.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
