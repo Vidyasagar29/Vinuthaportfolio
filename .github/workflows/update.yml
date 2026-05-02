@@ -1,0 +1,28 @@
+name: Update Portfolio
+
+on:
+  schedule:
+    - cron: "0 4-10 * * 1-5"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - run: npm install
+
+      - run: node scripts/generatePortfolio.js
+
+      - run: |
+          git config --global user.name "bot"
+          git config --global user.email "bot@github.com"
+          git add data/clients.json
+          git commit -m "update data" || echo "no change"
+          git push
