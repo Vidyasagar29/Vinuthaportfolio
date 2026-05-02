@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nifty ETF & Options Portfolio Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-white p-2 sm:p-4 overflow-hidden">
+<div class="w-full max-w-7xl mx-auto bg-white rounded-lg p-3 sm:rounded-xl sm:p-6 lg:p-8">
+
+  <h1 class="text-2xl sm:text-3xl font-bold text-blue-700 text-center mb-1">
+    Dr Vinutha's Options Portfolio
+  </h1>
+  <p class="text-center text-gray-600 mb-6 text-base sm:mb-8 sm:text-lg">
+    Protective PUT collar strategy
+  </p>
+
+  <div class="hidden lg:block overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-800">
+        <tr>
+          <th class="px-6 py-3 text-white text-left text-sm font-semibold uppercase">Symbol</th>
+          <th class="px-6 py-3 text-white text-center text-sm font-semibold uppercase">Qty</th>
+          <th class="px-6 py-3 text-white text-center text-sm font-semibold uppercase">Action</th>
+          <th class="px-6 py-3 text-white text-center text-sm font-semibold uppercase">Strike</th>
+          <th class="px-6 py-3 text-white text-center text-sm font-semibold uppercase">Buy Price</th>
+          <th class="px-6 py-3 text-white text-center text-sm font-semibold uppercase">Current Price</th>
+          <th class="px-6 py-3 text-white text-center text-sm font-semibold uppercase">Profit</th>
+        </tr>
+      </thead>
+
+      <tbody class="divide-y divide-gray-200 bg-white">
+        <tr class="hover:bg-blue-50">
+          <td class="px-6 py-4 font-medium">NIFTY Long Position (Futures)</td>
+          <td class="px-6 py-4 text-center">65</td>
+          <td class="px-6 py-4 text-center">
+            <span class="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">Buy</span>
+          </td>
+          <td class="px-6 py-4 text-center">-</td>
+          <td data-field="buy-1" class="px-6 py-4 text-center">Loading...</td>
+          <td data-field="curr-1" class="px-6 py-4 text-center">Loading...</td>
+          <td data-field="profit-1" class="px-6 py-4 text-center font-semibold">Loading...</td>
+        </tr>
+
+        <tr class="hover:bg-blue-50">
+          <td class="px-6 py-4 font-medium">NIFTY PUT</td>
+          <td class="px-6 py-4 text-center">65</td>
+          <td class="px-6 py-4 text-center">
+            <span class="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">Buy</span>
+          </td>
+          <td class="px-6 py-4 text-center">25,000</td>
+          <td data-field="buy-2" class="px-6 py-4 text-center">Loading...</td>
+          <td data-field="curr-2" class="px-6 py-4 text-center">Loading...</td>
+          <td data-field="profit-2" class="px-6 py-4 text-center font-semibold">Loading...</td>
+        </tr>
+
+        <tr class="hover:bg-blue-50">
+          <td class="px-6 py-4 font-medium">NIFTY CALL</td>
+          <td class="px-6 py-4 text-center">65</td>
+          <td class="px-6 py-4 text-center">
+            <span class="bg-red-100 text-red-800 text-xs font-semibold px-3 py-1 rounded-full">Sell</span>
+          </td>
+          <td class="px-6 py-4 text-center">29,000</td>
+          <td data-field="buy-3" class="px-6 py-4 text-center">Loading...</td>
+          <td data-field="curr-3" class="px-6 py-4 text-center">Loading...</td>
+          <td data-field="profit-3" class="px-6 py-4 text-center font-semibold">Loading...</td>
+        </tr>
+      </tbody>
+
+      <tfoot class="bg-gray-100">
+        <tr>
+          <td colspan="6" class="px-6 py-4 text-right font-bold uppercase">Total Profit</td>
+          <td data-field="total-profit" class="px-6 py-4 text-center font-bold">Loading...</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="lg:hidden space-y-3 sm:space-y-4">
+    <article class="border border-gray-200 rounded-xl p-4 bg-white">
+      <div class="flex items-start justify-between gap-3">
+        <h3 class="font-semibold text-gray-900">NIFTY Long Position (Futures)</h3>
+        <span class="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">Buy</span>
+      </div>
+      <dl class="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
+        <dt class="text-gray-500">Qty</dt><dd class="text-right font-medium">65</dd>
+        <dt class="text-gray-500">Strike</dt><dd class="text-right font-medium">-</dd>
+        <dt class="text-gray-500">Buy Price</dt><dd data-field="buy-1" class="text-right font-medium">Loading...</dd>
+        <dt class="text-gray-500">Current Price</dt><dd data-field="curr-1" class="text-right font-medium">Loading...</dd>
+        <dt class="text-gray-500">Profit</dt><dd data-field="profit-1" class="text-right font-semibold">Loading...</dd>
+      </dl>
+    </article>
+
+    <article class="border border-gray-200 rounded-xl p-4 bg-white">
+      <div class="flex items-start justify-between gap-3">
+        <h3 class="font-semibold text-gray-900">NIFTY PUT</h3>
+        <span class="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">Buy</span>
+      </div>
+      <dl class="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
+        <dt class="text-gray-500">Qty</dt><dd class="text-right font-medium">65</dd>
+        <dt class="text-gray-500">Strike</dt><dd class="text-right font-medium">25,000</dd>
+        <dt class="text-gray-500">Buy Price</dt><dd data-field="buy-2" class="text-right font-medium">Loading...</dd>
+        <dt class="text-gray-500">Current Price</dt><dd data-field="curr-2" class="text-right font-medium">Loading...</dd>
+        <dt class="text-gray-500">Profit</dt><dd data-field="profit-2" class="text-right font-semibold">Loading...</dd>
+      </dl>
+    </article>
+
+    <article class="border border-gray-200 rounded-xl p-4 bg-white">
+      <div class="flex items-start justify-between gap-3">
+        <h3 class="font-semibold text-gray-900">NIFTY CALL</h3>
+        <span class="bg-red-100 text-red-800 text-xs font-semibold px-3 py-1 rounded-full">Sell</span>
+      </div>
+      <dl class="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
+        <dt class="text-gray-500">Qty</dt><dd class="text-right font-medium">65</dd>
+        <dt class="text-gray-500">Strike</dt><dd class="text-right font-medium">29,000</dd>
+        <dt class="text-gray-500">Buy Price</dt><dd data-field="buy-3" class="text-right font-medium">Loading...</dd>
+        <dt class="text-gray-500">Current Price</dt><dd data-field="curr-3" class="text-right font-medium">Loading...</dd>
+        <dt class="text-gray-500">Profit</dt><dd data-field="profit-3" class="text-right font-semibold">Loading...</dd>
+      </dl>
+    </article>
+
+    <div class="border border-gray-200 rounded-xl p-4 bg-white">
+      <p class="text-xs uppercase tracking-wide text-gray-500">Total Profit</p>
+      <p data-field="total-profit" class="text-xl font-bold mt-1">Loading...</p>
+    </div>
+  </div>
+
+  <div class="mt-8 text-sm text-gray-700 leading-relaxed">
+    <h2 class="text-lg sm:text-xl font-bold mb-2">Trade Rationale & Payoff Structure</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li><b>Investment:</b> Rs 3,00,000</li>
+      <li><b>Structure:</b> Long Nifty + Long 25,000 PUT + Short 29,000 CALL</li>
+      <li><b>Downside:</b> 25000 PUT acts as an insurance. Below 25,000, PUT offsets losses -> <b>max loss Rs 35,000</b>.</li>
+      <li><b>Upside:</b> Between 25,000-29,000, profit rises linearly.</li>
+      <li><b>Cap:</b> Above 29,000, CALL caps gains -> <b>max profit ~Rs 2.3L</b>.</li>
+    </ul>
+  </div>
+
+  <div class="mt-10">
+    <h2 class="text-lg font-bold text-center mb-4">Payoff Curve at Expiry</h2>
+    <div class="relative h-64 sm:h-80 lg:h-96">
+      <canvas id="payoffChart"></canvas>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <h2 class="text-lg font-bold text-center mb-4">Expiry Payoff Table</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full min-w-[320px] border text-xs sm:text-sm text-center">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="border px-3 py-2">Nifty at Expiry</th>
+            <th class="border px-3 py-2">Total P&amp;L (Rs)</th>
+          </tr>
+        </thead>
+        <tbody id="payoffTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ===== PARAMETERS ===== */
+const qty = 65;
+const defaultIvPut = 0.2, ivCall = 0.12;
+const strikePut = 25000, strikeCall = 29000;
+const r = 0.10;
+const expiry = new Date("2026-12-29");
+const portfolioStartDate = new Date("2026-02-01");
+const buySpot = 24800;
+
+/* ===== BLACK-SCHOLES ===== */
+function N(x){return 0.5*(1+Math.erf(x/Math.sqrt(2)));}
+Math.erf=Math.erf||function(x){
+  const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;
+  const s=x>=0?1:-1; x=Math.abs(x); const t=1/(1+p*x);
+  return s*(1-(((((a5*t+a4)*t+a3)*t+a2)*t+a1)*t*Math.exp(-x*x)));
+};
+function bs(S,K,T,v,r,type){
+  if(T<=0) return Math.max(0,type==="call"?S-K:K-S);
+  const d1=(Math.log(S/K)+(r+0.5*v*v)*T)/(v*Math.sqrt(T));
+  const d2=d1-v*Math.sqrt(T);
+  return type==="call"
+    ? S*N(d1)-K*Math.exp(-r*T)*N(d2)
+    : K*Math.exp(-r*T)*N(-d2)-S*N(-d1);
+}
+function buyPrices(){
+  return {
+    etf: buySpot,
+    put: 593,
+    call: 354
+  };
+}
+
+/* ===== LIVE TABLE FROM GOOGLE SHEET ===== */
+const sheetCSVurl =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vTT0QXf8Hekn8p7M3HPoBhv_l_35bl781r7xHFAjnAXw3SgLwpCtuj9Uwa8UUYoz4KNfj7C2iE_ITK2/pub?gid=0&single=true&output=csv";
+
+function setProfitClass(el,val){
+  el.classList.remove("text-green-600","text-red-600","text-gray-500");
+  el.classList.add(val>0?"text-green-600":val<0?"text-red-600":"text-gray-500");
+}
+function setFieldText(field, text){
+  document.querySelectorAll(`[data-field="${field}"]`).forEach((el)=>{
+    el.textContent=text;
+  });
+}
+function setProfitField(field,val){
+  document.querySelectorAll(`[data-field="${field}"]`).forEach((el)=>{
+    el.textContent=val.toLocaleString(undefined,{maximumFractionDigits:2});
+    setProfitClass(el,val);
+  });
+}
+function updateTable(liveSpot, ivPut = defaultIvPut){
+  let T=(expiry-new Date())/(1000*60*60*24*365); if(T<0) T=0;
+  const putLive=bs(liveSpot,strikePut,T,ivPut,r,"put");
+  const callLive=bs(liveSpot,strikeCall,T,ivCall,r,"call");
+  const buys=buyPrices();
+
+  const etfP=qty*(liveSpot-buys.etf);
+  const putP=qty*(putLive-buys.put);
+  const callP=qty*(buys.call-callLive);
+
+  setFieldText("buy-1",buys.etf.toFixed(2));
+  setFieldText("curr-1",liveSpot.toFixed(2));
+  setProfitField("profit-1",etfP);
+
+  setFieldText("buy-2",buys.put.toFixed(2));
+  setFieldText("curr-2",putLive.toFixed(2));
+  setProfitField("profit-2",putP);
+
+  setFieldText("buy-3",buys.call.toFixed(2));
+  setFieldText("curr-3",callLive.toFixed(2));
+  setProfitField("profit-3",callP);
+
+  const total=etfP+putP+callP;
+  setFieldText("total-profit", total.toLocaleString(undefined, { maximumFractionDigits: 2 }));
+  document.querySelectorAll('[data-field="total-profit"]').forEach((el)=>setProfitClass(el,total));
+}
+
+fetch(sheetCSVurl)
+  .then((resp)=>resp.text())
+  .then((csv)=>{
+    const rows = csv
+      .trim()
+      .split(/\r?\n/)
+      .map((line) => line.split(",").map((cell) => cell.trim()));
+
+    const niftySpot = parseFloat(rows[0]?.[1]);
+    const putIvPercent = parseFloat(rows[1]?.[1]);
+    const putIv = Number.isFinite(putIvPercent) ? putIvPercent / 100 : defaultIvPut;
+
+    updateTable(niftySpot, putIv);
+  });
+
+/* ===== EXPIRY PAYOFF (SCENARIO) ===== */
+function expiryPayoff(spot){
+  const buys=buyPrices();
+  return qty*(spot-buys.etf)
+       + qty*(Math.max(0,strikePut-spot)-buys.put)
+       + qty*(buys.call-Math.max(0,spot-strikeCall));
+}
+const xs=[],ys=[];
+for(let s=25000;s<=30000;s+=250){ xs.push(s); ys.push(expiryPayoff(s)); }
+new Chart(document.getElementById("payoffChart"),{
+  type:"line",
+  data:{labels:xs,datasets:[{data:ys,borderWidth:2,tension:0.15}]},
+  options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{legend:{display:false}}
+  }
+});
+const tbody=document.getElementById("payoffTable");
+for(let s=25000;s<=30000;s+=1000){
+  tbody.innerHTML+=`<tr><td class="border px-3 py-2">${s}</td>
+  <td class="border px-3 py-2">${expiryPayoff(s).toLocaleString()}</td></tr>`;
+}
+</script>
+
+</body>
+</html>
