@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-24T07:52:44.969Z",
+  "lastUpdated": "2026-08-24T08:40:27.401Z",
   "clients": [
     {
       "clientId": "Vinutha",
@@ -12,13 +12,13 @@
       "putIV": 12,
       "callIV": 11,
       "expiryDate": "2026-12-30T10:00:00.000Z",
-      "timeToExpiryYears": 0.350927,
-      "currentValue": 1629127.079691,
+      "timeToExpiryYears": 0.350836,
+      "currentValue": 1628735.035303,
       "initialValue": 1627535,
-      "pnl": 1592.079691,
-      "spot": 24174.6,
-      "putNow": 903.736047,
-      "callNow": 14.842513,
+      "pnl": 1200.035303,
+      "spot": 24159.45,
+      "putNow": 912.458984,
+      "callNow": 14.446903,
       "quantity": 65
     },
     {
@@ -32,13 +32,13 @@
       "putIV": 15,
       "callIV": 11,
       "expiryDate": "2026-12-30T10:00:00.000Z",
-      "timeToExpiryYears": 0.350927,
-      "currentValue": 64112099.185297,
+      "timeToExpiryYears": 0.350836,
+      "currentValue": 64101804.973901,
       "initialValue": 65587500,
-      "pnl": -1475400.814703,
-      "spot": 24174.6,
-      "putNow": 1732.461576,
-      "callNow": 3.183117,
+      "pnl": -1485695.026099,
+      "spot": 24159.45,
+      "putNow": 1743.352882,
+      "callNow": 3.083701,
       "quantity": 2475
     }
   ]
